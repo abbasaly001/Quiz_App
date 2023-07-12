@@ -36,18 +36,18 @@ public class ShowResult extends Fragment {
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Correct: ").append(storedGainScore).append("\n");
-            stringBuilder.append("Total: ").append(storedTotalScore).append("\n");
-            stringBuilder.append("Wrong: ").append(wrongAnswers).append("\n\n");
+            stringBuilder.append("Correct Answer: ").append(storedGainScore).append("\n");
+            stringBuilder.append("Total Attempted: ").append(storedTotalScore).append("\n");
+            stringBuilder.append("Wrong Answer: ").append(wrongAnswers).append("\n\n");
 
             if (wrongAnswers < 3) {
-                stringBuilder.append("Status: Excellent").append("\n");
+                stringBuilder.append("Grade:A").append("\n");
             } else if (wrongAnswers < 6) {
-                stringBuilder.append("Status: Good").append("\n");
+                stringBuilder.append("Grade: B").append("\n");
             } else if (wrongAnswers < 9) {
-                stringBuilder.append("Status: Poor").append("\n");
+                stringBuilder.append("Grade: C").append("\n");
             } else {
-                stringBuilder.append("Status: Bad").append("\n");
+                stringBuilder.append("Grade: D").append("\n");
             }
 
             t.setText(stringBuilder.toString());
