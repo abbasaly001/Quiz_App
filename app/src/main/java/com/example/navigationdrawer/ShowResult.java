@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment;
 
 public class ShowResult extends Fragment {
 
+    TextView t;
+
     public ShowResult() {
         // Required empty public constructor
     }
 
-    TextView t;
     public static ShowResult newInstance() {
         return new ShowResult();
     }
@@ -28,17 +29,23 @@ public class ShowResult extends Fragment {
         t = view.findViewById(R.id.neroo);
 
         DBHelper dbHelper = new DBHelper(getContext());
+
+        // Example usage: Storing a quiz result
+        int gainScore = 8;
+        int totalScore = 10;
+        dbHelper.addQuizResult(gainScore, totalScore);
+
         Score recentScores = dbHelper.getRecentScores();
 
         if (recentScores != null) {
-            int gainScore = recentScores.getGainScore();
-            int totalScore = recentScores.getTotalScore();
-            int wrongAnswers = totalScore - gainScore;
+            int storedGainScore = recentScores.getGainScore();
+            int storedTotalScore = recentScores.getTotalScore();
+            int wrongAnswers = storedTotalScore - storedGainScore;
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Correct: ").append(gainScore).append("\n");
-            stringBuilder.append("Total: ").append(totalScore).append("\n");
+            stringBuilder.append("Correct: ").append(storedGainScore).append("\n");
+            stringBuilder.append("Total: ").append(storedTotalScore).append("\n");
             stringBuilder.append("Wrong: ").append(wrongAnswers).append("\n\n");
 
             if (wrongAnswers < 3) {
@@ -54,10 +61,9 @@ public class ShowResult extends Fragment {
             t.setText(stringBuilder.toString());
 
         } else {
-            t.setText("You have not given the quiz!");
+            t.setText("You have not taken the quiz!");
         }
 
         return view;
     }
-
 }

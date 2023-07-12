@@ -21,7 +21,7 @@ public class TakeQuiz extends Fragment {
     int count = 0;
     int ne = 0;
     TextView tx, ex;
-    Button sky, grass, root, next, end;
+    Button sky, grass, root, end;
     Random rand;
     int n;
 
@@ -38,7 +38,6 @@ public class TakeQuiz extends Fragment {
         sky = view.findViewById(R.id.button5);
         grass = view.findViewById(R.id.button6);
         root = view.findViewById(R.id.button8);
-        next = view.findViewById(R.id.button4);
         end = view.findViewById(R.id.button10);
 
         DBHelper db = new DBHelper(getContext());
@@ -56,45 +55,20 @@ public class TakeQuiz extends Fragment {
         }
         ne++;
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ne++;
-                ex.setText("");
-                n = rand.nextInt(3);
-                if (n == 0) {
-                    char i = skyletter[rand.nextInt(skyletter.length)];
-                    tx.setText(String.valueOf(i));
-                } else if (n == 1) {
-                    char i = grassletter[rand.nextInt(grassletter.length)];
-                    tx.setText(String.valueOf(i));
-                } else if (n == 2) {
-                    char i = rootletter[rand.nextInt(rootletter.length)];
-                    tx.setText(String.valueOf(i));
-                }
-            }
-        });
-
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ex.setText("Session Ended! Check Score");
-            }
-        });
-
         sky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (n == 0) {
-                    ex.setText("Select Next Word");
+                    ex.setText("Click for Next Word");
                     count++;
                 } else {
-                    ex.setText("Select Next Word");
+                    ex.setText("Click for Next Word");
                     //ex.setText("Your answer is not right");
-
                 }
+                generateNewLetter();
             }
         });
+
         grass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,8 +80,10 @@ public class TakeQuiz extends Fragment {
                     ex.setText("Select Next Word");
                     //ex.setText("Your answer is not right");
                 }
+                generateNewLetter();
             }
         });
+
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,9 +95,33 @@ public class TakeQuiz extends Fragment {
                     ex.setText("Select Next Word");
                     //ex.setText("Your answer is not right");
                 }
+                generateNewLetter();
+            }
+        });
+
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ex.setText("Check Score in Menu");
             }
         });
 
         return view;
+    }
+
+    public void generateNewLetter() {
+        ne++;
+        ex.setText("");
+        n = rand.nextInt(3);
+        if (n == 0) {
+            char i = skyletter[rand.nextInt(skyletter.length)];
+            tx.setText(String.valueOf(i));
+        } else if (n == 1) {
+            char i = grassletter[rand.nextInt(grassletter.length)];
+            tx.setText(String.valueOf(i));
+        } else if (n == 2) {
+            char i = rootletter[rand.nextInt(rootletter.length)];
+            tx.setText(String.valueOf(i));
+        }
     }
 }

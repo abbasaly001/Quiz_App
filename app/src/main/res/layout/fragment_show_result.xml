@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="#00FF00">
 
 
         <TextView
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Your Quiz Result\n"
             android:textSize="24sp"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="24dp" />
 
 

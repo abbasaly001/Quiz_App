@@ -44,6 +44,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
+    public void addQuizResult(int gainScore, int totalScore) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GAIN_SCORE, gainScore);
+        values.put(COLUMN_TOTAL_SCORE, totalScore);
+
+        db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
     public Score getRecentScores() {
         Score score = null;
         String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY rowid DESC LIMIT 1";
