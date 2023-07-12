@@ -13,10 +13,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="310dp"
+            android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:background="#FFFFFF"
-            android:text="Click On the Menu Button"
+            android:text="Click On the Menu Button to Start"
             android:textColor="@color/black"
             android:textSize="24sp" />
 
