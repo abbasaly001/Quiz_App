@@ -42,18 +42,7 @@ public class TakeQuiz extends Fragment {
 
         DBHelper db = new DBHelper(getContext());
         rand = new Random();
-        n = rand.nextInt(3);
-        if (n == 0) {
-            char i = skyletter[rand.nextInt(skyletter.length)];
-            tx.setText(String.valueOf(i));
-        } else if (n == 1) {
-            char i = grassletter[rand.nextInt(grassletter.length)];
-            tx.setText(String.valueOf(i));
-        } else if (n == 2) {
-            char i = rootletter[rand.nextInt(rootletter.length)];
-            tx.setText(String.valueOf(i));
-        }
-        ne++;
+        generateNewLetter();
 
         sky.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +55,7 @@ public class TakeQuiz extends Fragment {
                     //ex.setText("Your answer is not right");
                 }
                 generateNewLetter();
+                checkSelectionLimit();
             }
         });
 
@@ -81,6 +71,7 @@ public class TakeQuiz extends Fragment {
                     //ex.setText("Your answer is not right");
                 }
                 generateNewLetter();
+                checkSelectionLimit();
             }
         });
 
@@ -96,6 +87,7 @@ public class TakeQuiz extends Fragment {
                     //ex.setText("Your answer is not right");
                 }
                 generateNewLetter();
+                checkSelectionLimit();
             }
         });
 
@@ -108,14 +100,14 @@ public class TakeQuiz extends Fragment {
                 DBHelper dbHelper = new DBHelper(getContext());
                 dbHelper.addQuizResult(gainScore, totalScore);
 
-                ex.setText("Check Score in Menu");
+                ex.setText("Check Result in Menu");
             }
         });
 
         return view;
     }
 
-    public void generateNewLetter() {
+    private void generateNewLetter() {
         ne++;
         ex.setText("");
         n = rand.nextInt(3);
@@ -128,6 +120,19 @@ public class TakeQuiz extends Fragment {
         } else if (n == 2) {
             char i = rootletter[rand.nextInt(rootletter.length)];
             tx.setText(String.valueOf(i));
+        }
+    }
+
+    private void checkSelectionLimit() {
+        if (count >= 10) {
+            // Disable buttons after 10 selections
+            sky.setEnabled(false);
+            grass.setEnabled(false);
+            root.setEnabled(false);
+            sky.setClickable(false);
+            grass.setClickable(false);
+            root.setClickable(false);
+            ex.setText("You have reached the limit of 10 selections.");
         }
     }
 }
