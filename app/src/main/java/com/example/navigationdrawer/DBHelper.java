@@ -63,8 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
-            @SuppressLint("Range") int gainScore = cursor.getInt(cursor.getColumnIndex(COLUMN_GAIN_SCORE));
-            @SuppressLint("Range") int totalScore = cursor.getInt(cursor.getColumnIndex(COLUMN_TOTAL_SCORE));
+            int gainScore = cursor.getInt(cursor.getColumnIndex(COLUMN_GAIN_SCORE));
+            int totalScore = cursor.getInt(cursor.getColumnIndex(COLUMN_TOTAL_SCORE));
 
             score = new Score(gainScore, totalScore);
         }
@@ -74,5 +74,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return score;
     }
+
 }
 

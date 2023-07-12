@@ -102,6 +102,12 @@ public class TakeQuiz extends Fragment {
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int gainScore = count;
+                int totalScore = ne - 1; // Subtract 1 to exclude the initial letter
+
+                DBHelper dbHelper = new DBHelper(getContext());
+                dbHelper.addQuizResult(gainScore, totalScore);
+
                 ex.setText("Check Score in Menu");
             }
         });

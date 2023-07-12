@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-
-
 public class ShowResult extends Fragment {
 
     TextView t;
@@ -29,12 +27,6 @@ public class ShowResult extends Fragment {
         t = view.findViewById(R.id.neroo);
 
         DBHelper dbHelper = new DBHelper(getContext());
-
-        // Example usage: Storing a quiz result
-        int gainScore = 8;
-        int totalScore = 10;
-        dbHelper.addQuizResult(gainScore, totalScore);
-
         Score recentScores = dbHelper.getRecentScores();
 
         if (recentScores != null) {
