@@ -24,6 +24,8 @@ public class TakeQuiz extends Fragment {
     Button sky, grass, root, end;
     Random rand;
     int n;
+    int clickCount = 0;
+    static final int MAX_CLICK_COUNT = 10;
 
     public TakeQuiz() {
         // Required empty public constructor
@@ -47,47 +49,33 @@ public class TakeQuiz extends Fragment {
         sky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (n == 0) {
-                    ex.setText("Click for Next Word");
-                    count++;
-                } else {
-                    ex.setText("Click for Next Word");
-                    //ex.setText("Your answer is not right");
+                if (clickCount < MAX_CLICK_COUNT) {
+                    checkAnswer(0);
+                    generateNewLetter();
+                    clickCount++;
                 }
-                generateNewLetter();
-                checkSelectionLimit();
             }
         });
 
         grass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (n == 1) {
-                    ex.setText("Select Next Word");
-                    //ex.setText("Your answer is right");
-                    count++;
-                } else {
-                    ex.setText("Select Next Word");
-                    //ex.setText("Your answer is not right");
+                if (clickCount < MAX_CLICK_COUNT) {
+                    checkAnswer(1);
+                    generateNewLetter();
+                    clickCount++;
                 }
-                generateNewLetter();
-                checkSelectionLimit();
             }
         });
 
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (n == 2) {
-                    ex.setText("Select Next Word");
-                    //ex.setText("Your answer is right");
-                    count++;
-                } else {
-                    ex.setText("Select Next Word");
-                    //ex.setText("Your answer is not right");
+                if (clickCount < MAX_CLICK_COUNT) {
+                    checkAnswer(2);
+                    generateNewLetter();
+                    clickCount++;
                 }
-                generateNewLetter();
-                checkSelectionLimit();
             }
         });
 
@@ -108,31 +96,38 @@ public class TakeQuiz extends Fragment {
     }
 
     private void generateNewLetter() {
-        ne++;
-        ex.setText("");
-        n = rand.nextInt(3);
-        if (n == 0) {
-            char i = skyletter[rand.nextInt(skyletter.length)];
-            tx.setText(String.valueOf(i));
-        } else if (n == 1) {
-            char i = grassletter[rand.nextInt(grassletter.length)];
-            tx.setText(String.valueOf(i));
-        } else if (n == 2) {
-            char i = rootletter[rand.nextInt(rootletter.length)];
-            tx.setText(String.valueOf(i));
+        if (ne <= MAX_CLICK_COUNT) {
+            ne++;
+            ex.setText("");
+            n = rand.nextInt(3);
+            if (n == 0) {
+                char i = skyletter[rand.nextInt(skyletter.length)];
+                tx.setText(String.valueOf(i));
+            } else if (n == 1) {
+                char i = grassletter[rand.nextInt(grassletter.length)];
+                tx.setText(String.valueOf(i));
+            } else if (n == 2) {
+                char i = rootletter[rand.nextInt(rootletter.length)];
+                tx.setText(String.valueOf(i));
+            }
+        } else {
+            tx.setText("");
+            ex.setText("Only 10 questions at one time");
+            sky.setEnabled(false);   // Disable all answer buttons
+            grass.setEnabled(false);
+            root.setEnabled(false);
+            end.setEnabled(false);
         }
     }
 
-    private void checkSelectionLimit() {
-        if (count >= 10) {
-            // Disable buttons after 10 selections
-            sky.setEnabled(false);
-            grass.setEnabled(false);
-            root.setEnabled(false);
-            sky.setClickable(false);
-            grass.setClickable(false);
-            root.setClickable(false);
-            ex.setText("You have reached the limit of 10 selections.");
+
+
+    private void checkAnswer(int selectedButton) {
+        if ((n == 0 && selectedButton == 0) || (n == 1 && selectedButton == 1) || (n == 2 && selectedButton == 2)) {
+            ex.setText("Your answer is correct");
+            count++;
+        } else {
+            ex.setText("Your answer is not correct");
         }
     }
 }
